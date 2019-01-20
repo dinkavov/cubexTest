@@ -82,4 +82,12 @@ class MessController extends Controller
         else
             return redirect('/')->with('error', 'You cannot perform this action');
     }
+
+    public function ushow()
+    {
+        if(!Gate::allows('adminAction')){
+            $mess = $this->messRepository->getLatestUserMess(Auth::user()->id);
+            return view('mess.ushowmess', ['mess' => $mess]);
+        }//ща от юзера несколько создам для проверки, но все равно админ видит ток последнюю, аааааа.... сделать тобы админ все видел? да, ВСе от определеннгоого юзера, ща проверю, зачекай
+    }
 }

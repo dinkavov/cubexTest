@@ -41,7 +41,7 @@ class AuthServiceProvider extends ServiceProvider
                 $canMakeMess = $dateTimestamp1->diff($now)->days >= 1 ? true : false;
                 return $canMakeMess;
             }
-            else
+            else 
                 return true;
         });
     }

@@ -10,7 +10,7 @@
                         <th>ID</th>
                         <th>{{ $mess->id }}</th>
                     </tr>
-
+                    
                     <tr>
                         <th>Имя пользователя</th>
                         <th>{{ $mess->user->name }}</th>

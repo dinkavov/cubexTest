@@ -41,7 +41,7 @@ class MessRepository implements IMessRepository
     }
 
     public function getLatestUserMess($userId){
-        $mess = Messages::where('user_id', $userId)->orderBy('created_at', 'desc')->first();
+        $mess = Messages::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
         return $mess;
     }
 }

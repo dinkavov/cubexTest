@@ -22,5 +22,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::post('mess', 'MessController@store')->name('mess.store');
 Route::get('mess', 'MessController@index')->name('mess.index');
 Route::get('mess/create', 'MessController@create')->name('mess.create');
-Route::get('mess/{mess}', 'MessController@show')->name('mess.show');
+Route::get('mess/mess/{id}', 'MessController@show')->name('mess.show');
+Route::get('mess/ushow', 'MessController@ushow')->name('mess.ushow');
 Route::match(['put', 'patch'], 'mess/{mess}', 'MessController@markAsViewed')->name('mess.markAsViewed');

@@ -83,20 +83,6 @@
                 <div class="title m-b-md">
                     Cubex
                 </div>
-                <div class="flex-center">
-                    @auth
-                        @if(Auth::user()->isAdmin)
-                            <a href="{{ route("mess.index") }}" class="btn btn-info">
-                                Просмотреть заявки
-                            </a>
-                        @else
-                            <a href="{{ route("mess.create") }}" class="btn btn-info">
-                                Создать заявку
-                            </a>
-                        @endif
-                    @endauth
-                </div>
-
             </div>
         </div>
         </div>

@@ -4,9 +4,9 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <a href="{{route("home")}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">В личный кабинет</a><br></br>
                 <div class="panel panel-default">
 
+                    <a href="{{route("home")}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">В личный кабинет</a><br></br>
                     @if(count($mess) >= 1)
                         <table class="table table-hover" style="width:100%">
                             <thead class="thead-light">
@@ -25,10 +25,9 @@
                                     <td>{{ $mes->id }}</td>
                                     <td>{{ $mes->theme }}</td>
                                     <td>{{ $mes->user->name }}</td>
-                                    <td>{{ $mes->isViewed ? 'Да' : 'Нет'}}</td>
+                                    <td>{{ $mes->isViewed ? 'Да' : 'Нет' }}</td>
                                     <td>{{ $mes->created_at }}</td>
                                     <td style="white-space: nowrap">
-                                        <a href="{{route("mess.show", ['id' => $mes->id])}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">Просмотреть</a>
                                     </td>
                                 </tr>
                             @endforeach
