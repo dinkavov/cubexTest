@@ -25,7 +25,7 @@ class AdminMail extends Model
     {
         //var_dump($this->mess);
         return $this->from('new@cubex.com', $this->mess->user->name)
-                    ->to('email@example.com')
+                    ->to('vladislav5133@gmail.com')
                     ->subject('You have new message '.$this->mess->user->name)
                     ->attach(public_path('storage/files/'.$this->mess->file))
                     ->view('emails.AdminMail')
