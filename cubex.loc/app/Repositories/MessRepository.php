@@ -30,7 +30,7 @@ class MessRepository implements IMessRepository
 
     public function getAllMess()
     {
-        return Messages::all();
+        return Messages::paginate(5);
     }
 
     public function markAsViewed($messId)
@@ -40,8 +40,16 @@ class MessRepository implements IMessRepository
         $mess->save();
     }
 
+
     public function getLatestUserMess($userId){
-        $mess = Messages::where('user_id', $userId)->orderBy('created_at', 'desc')->get();
+        $mess = Messages::where('user_id', $userId)
+            ->orderBy('created_at', 'desc')
+            ->paginate(5);
+
         return $mess;
+    }
+    
+    public function getLastUserMessage($userId) {
+        return Messages::where(['user_id' => $userId])->orderBy('created_at', 'desc')->first();
     }
 }

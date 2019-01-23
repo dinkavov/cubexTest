@@ -7,6 +7,7 @@
                 <a href="{{route("home")}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">В личный кабинет</a><br></br>
                 <div class="card">
                     <div class="card-header">Создать заявку</div>
+                    <div class="card-body">
 
                         {!! Form::open(['action' => ['MessController@store'], 'method' => 'POST', 'enctype' => 'multipart/form-data']) !!}
 
@@ -21,12 +22,12 @@
                         </div>
 
                         <div class="form-group">
-                            {{ Form::file('file', ['class' => 'form-control']) }}
+                            {{ Form::file('file') }}
                         </div>
 
                         {{ Form::submit('Отправить', ['class' => 'btn btn-primary btn-lg']) }}
                         {!! Form::close() !!}
-
+                
                     </div>
                 </div>
             </div>

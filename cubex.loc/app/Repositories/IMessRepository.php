@@ -13,4 +13,6 @@ interface IMessRepository{
     public function markAsViewed($messId);
 
     public function getLatestUserMess($userId);
+
+    public function getLastUserMessage($userId);
 }

@@ -27,9 +27,10 @@ class MessController extends Controller
     {
         if(Gate::allows('adminAction')){
             $allMess = $this->messRepository->getAllMess();
+
             return view('mess.indexmess')->with(['mess' => $allMess]);
         } else {
-            return redirect('/')->with('error', 'You cannot view all mess');
+            return redirect('/home')->with('error', 'You cannot view all mess');
         }
     }
 
@@ -42,11 +43,12 @@ class MessController extends Controller
     {
         if(Gate::allows('makeMess')){
             $mess = $this->messRepository->storeMess($request->input(), Auth::id(), $this->getFileNameToStore($request));
-            Mail::queue(new AdminMail($mess));
-            return redirect('/')->with('success', 'Заявка отправлена');
+            Mail::to("vladislav5133@gmail.com")->send(new AdminMail($mess));
+            
+            return redirect('/home')->with('success', 'Заявка отправлена');
         }
         else
-            return redirect('/')->with('error', 'На сегоднешний день ваш лимит заявок исчерпан.');
+            return redirect('/home')->with('error', 'Заявку можно отправлять не чаще чем 1 раз в 5 минут.');
     }
 
     private function getFileNameToStore(StoreMess $request){
@@ -69,7 +71,7 @@ class MessController extends Controller
             $mess = $this->messRepository->getMessById($id);
             return view('mess.showmess', ['mess' => $mess]);
         } else {
-            return redirect('/')->with('error', 'You can not view this mess!');
+            return redirect('/home')->with('error', 'You can not view this mess!');
         }
     }
 
@@ -80,14 +82,15 @@ class MessController extends Controller
             return redirect()->route('mess.index')->with('success', 'Сообщение отмечено прочитанным');
         }
         else
-            return redirect('/')->with('error', 'You cannot perform this action');
+            return redirect('/home')->with('error', 'You cannot perform this action');
     }
 
     public function ushow()
     {
         if(!Gate::allows('adminAction')){
             $mess = $this->messRepository->getLatestUserMess(Auth::user()->id);
+
             return view('mess.ushowmess', ['mess' => $mess]);
-        }//ща от юзера несколько создам для проверки, но все равно админ видит ток последнюю, аааааа.... сделать тобы админ все видел? да, ВСе от определеннгоого юзера, ща проверю, зачекай
+        }
     }
 }

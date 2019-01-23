@@ -2,16 +2,15 @@
 
 namespace App\Mail;
 
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Bus\Queueable;
+use App\Models\Messages;
 use Illuminate\Mail\Mailable;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\Storage;
 
-class AdminMail extends Model
+class AdminMail extends Mailable
 {
-	use Queueable, SerializesModels;
 	
 	protected $mess;
 
@@ -20,18 +19,20 @@ class AdminMail extends Model
         $this->mess = $mess;
     }
 
-
     public function build()
     {
-        //var_dump($this->mess);
-        return $this->from('new@cubex.com', $this->mess->user->name)
+        $mail = $this->from('crm.urich@gmail.com', $this->mess->user->name)
                     ->to('vladislav5133@gmail.com')
                     ->subject('You have new message '.$this->mess->user->name)
-                    ->attach(public_path('storage/files/'.$this->mess->file))
                     ->view('emails.AdminMail')
                     ->with(['theme' => $this->mess->theme,
                             'content' => $this->mess->message,
                             'createdAt' => $this->mess->created_at,
                             'userName' => $this->mess->user->name]);
+
+        if (!empty($this->mess->file))
+            $mail->attach(public_path('storage/files/'.$this->mess->file));
+
+        return $mail;
     }
 }

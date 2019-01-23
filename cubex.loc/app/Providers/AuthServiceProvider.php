@@ -34,15 +34,19 @@ class AuthServiceProvider extends ServiceProvider
 
         Gate::define('makeMess', function ($user) {
             $messRepository = new MessRepository(new Messages());
-            $latestMess = $messRepository->getLatestUserMess($user->id);
-            // if($latestMess != null){
-            //     $dateTimestamp1 = new DateTime($latestMess->created_at);
-            //     $now = new DateTime();
-            //     $canMakeMess = $dateTimestamp1->diff($now)->days >= 1 ? true : false;
-            //     return $canMakeMess;
-            //  }
-            // else 
-                //return true;
+            $latestMess = $messRepository->getLastUserMessage($user->id);
+
+            if($latestMess != null){
+                $dateTimestamp1 = new DateTime($latestMess->created_at);
+                $now = new DateTime();
+                $canMakeMess = $dateTimestamp1->diff($now);
+
+                $canMakeMess = ($canMakeMess->format('%i%') < 5) ? false : true;
+
+                return $canMakeMess;
+             }
+            else 
+                return true;
         });
     }
 }

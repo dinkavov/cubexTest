@@ -12,7 +12,7 @@ class UsersTableSeeder extends Seeder
             'name' => str_random(10),
             'email' => 'email@example.com',
             'password' => bcrypt('123456'),
-            'isAdmin' => true
+            'isAdmin' => 1
         ]);
     }
 }
