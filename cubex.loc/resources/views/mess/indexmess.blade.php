@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-10">
             <a href="{{route("home")}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">В личный кабинет</a><br></br>
             <div class="panel panel-default">
                 <div class="card">
@@ -30,7 +30,11 @@
                                 <td>{{ $mes->isViewed ? 'Да' : 'Нет'}}</td>
                                 <td>{{ $mes->created_at }}</td>
                                 <td style="white-space: nowrap">
-                                    <a href="{{route("mess.show", ['id' => $mes->id])}}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">Просмотреть</a>
+                                    @if (!$mes->isViewed)
+                                        <a href="{{ route("mess.show", ['id' => $mes->id]) }}" class="btn btn-success d-xs-inline-block d-sm-inline-block d-md-inline-block d-lg-inline-block d-xl-inline-block">Просмотреть</a>
+                                    @else
+                                        <a href="{{ route("chat.index", ['request_id' => $mes->id]) }}" class="btn btn-info">Открыть чат</a>
+                                    @endif
                                 </td>
                             </tr>
                             @endforeach

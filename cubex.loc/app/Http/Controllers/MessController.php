@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreMess;
 use App\Mail\AdminMail;
 use App\Models\Messages;
+use App\Models\Chat;
 use App\Repositories\MessRepository;
 use DateTime;
 use Illuminate\Http\Request;
@@ -15,11 +16,13 @@ use Illuminate\Support\Facades\Mail;
 
 class MessController extends Controller
 {
+    protected $chat;
 	protected $messRepository;
 
     public function __construct(MessRepository $messRepository)
     {
         $this->middleware('auth');
+        $this->chat = new Chat();
         $this->messRepository = $messRepository;
     }
 
@@ -79,6 +82,13 @@ class MessController extends Controller
     {
         if(Gate::allows('adminAction')){
             $this->messRepository->markAsViewed($messId);
+
+            $this->chat::create([
+                'request_id' => $messId,
+                'text' => 'Ваша заявка была просмотрена! Ожидайте ответа.',
+                'isManager' => Chat::SEND_MANAGER
+            ]);
+
             return redirect()->route('mess.index')->with('success', 'Сообщение отмечено прочитанным');
         }
         else
